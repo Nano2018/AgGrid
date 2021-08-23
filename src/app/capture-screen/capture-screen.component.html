@@ -1,0 +1,157 @@
+<div class="container">
+    <div class="form-container" col-md-9>
+    <mat-icon class="icon-form">contact_page</mat-icon>
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+
+          <div class="form-group col-md-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Prénom:</mat-label>
+                <input matInput  formControlName="firstName" required>
+            </mat-form-field><br>
+            <span style="color: brown;" *ngIf="profileForm.controls.firstName.errors?.required && profileForm.controls.firstName.touched ">  
+                Veuillez préciser votre Prénom.
+            </span>
+          </div>
+         
+          <div class="form-group col-md-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Nom:</mat-label>
+                <input matInput formControlName="lastName" required>
+            </mat-form-field><br>
+            <span style="color: brown;" *ngIf="profileForm.controls.lastName.errors?.required && profileForm.controls.lastName.touched ">  
+                Veuillez préciser votre Nom.
+            </span>
+          </div>
+          <div class="form-group col-md-3">
+            <mat-form-field appearance="outline">
+                <mat-label>Date de Naissance:</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="birthdate" required>
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field><br>
+            <span style="color: brown;" *ngIf="profileForm.controls.birthdate.errors?.required && profileForm.controls.birthdate.touched ">  
+                Veuillez préciser votre date de naissance.
+            </span>
+         </div>
+        </div>
+
+        <div class="form-address" formArrayName = "address">
+            <div *ngFor="let addr of address.controls; let i=index">
+
+                <p class="form-paragraph">Adresse {{i+1}}:</p>
+                <div class="form-row"  [formGroupName]="i">
+                    <div class="form-group col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Numéro:</mat-label>
+                            <input matInput formControlName="houseNumber" required [pattern] = "houseNumberPattern">
+                        </mat-form-field><br>
+                        <span style="color: brown;" *ngIf="addr.controls.houseNumber.errors?.required  && addr.controls.houseNumber.touched">  
+                            champs requis 
+                        </span>
+                        <span style="color: brown;" *ngIf="addr.controls.houseNumber.errors?.pattern">
+                            nuémro de rue non valide. 
+                        </span>
+                    </div>
+                    
+                    <div class="form-group col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Type de voie:</mat-label>
+                            <input matInput formControlName="routeType" required>
+                        </mat-form-field><br>
+                        <span style="color: brown;" *ngIf="addr.controls.routeType.errors?.required  && addr.controls.routeType.touched">  
+                            champs requis.
+                        </span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Rue:</mat-label>
+                            <input matInput formControlName="street" required>
+                        </mat-form-field><br>
+                        <span style="color: brown;" *ngIf="addr.controls.street.errors?.required  && addr.controls.street.touched">  
+                            champs requis. 
+                        </span>
+                    </div>
+                
+                    <div class="form-group col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Type d'adresse:</mat-label>
+                            <input matInput formControlName="addressType" required>
+                        </mat-form-field><br>
+                        <span style="color: brown;" *ngIf="addr.controls.addressType.errors?.required  && addr.controls.addressType.touched">  
+                            champs requis <span class="span-address">(Example : adresse de domicile).</span> 
+                        </span>
+                    </div>
+
+                    <div class="form-group col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Ville:</mat-label>
+                            <input matInput formControlName="city" required>
+                        </mat-form-field><br>
+                        <span style="color: brown;" *ngIf="addr.controls.city.errors?.required  && addr.controls.city.touched">  
+                            champs requis.
+                        </span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Code Postale:</mat-label>
+                            <input matInput formControlName="zipCode" required [pattern] = "zipCodePattern">
+                        </mat-form-field><br>
+                        <span style="color: brown;" *ngIf="addr.controls.zipCode.errors?.required  && addr.controls.zipCode.touched">  
+                            champs requis.
+                        </span>
+                        <span style="color: brown;" *ngIf="addr.controls.zipCode.errors?.pattern">
+                            code postale non valide (example 45000).
+                        </span>
+                    </div>
+                    <div >
+                        
+                   </div> 
+                    <div class="form-group col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Pays:</mat-label>
+                            <input matInput formControlName="country" required>
+                        </mat-form-field><br>
+                        <span style="color: brown;" *ngIf="addr.controls.country.errors?.required  && addr.controls.country.touched">  
+                            champs requis.
+                        </span>
+                    </div>
+        
+                    <div class="form-group col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Commentaire</mat-label>
+                            <textarea matInput  formControlName="comment"></textarea>
+                        </mat-form-field><br>
+                        <span style="color: brown;" *ngIf="addr.controls.comment.errors?.required  && addr.controls.comment.touched">  
+                            champs requis.
+                        </span>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <mat-form-field appearance="outline">
+                            <mat-label>Numéro de téléphone:</mat-label>
+                            <input matInput formControlName="phoneNumber" required [pattern] = "phoneNumberPattern">
+                        </mat-form-field><br>
+                        <span style="color: brown;" *ngIf="addr.controls.phoneNumber.errors?.required  && addr.controls.phoneNumber.touched">  
+                            champs requis
+                        </span>
+                        <span style="color: brown;" *ngIf="addr.controls.phoneNumber.errors?.pattern">
+                            Numéro de téléphone non valide.
+                        </span>
+                    </div>
+                </div>
+            </div>   
+        </div>
+
+
+        <button  type="submit" mat-flat-button [disabled] = "!profileForm.valid"  color="accent">Ajouter</button>
+      </form><br>
+      <div class="add-address">
+        <button mat-mini-fab color="primary" matTooltip="add adress" (click) = "addNewAddress()">
+            <mat-icon>add</mat-icon>
+        </button>&nbsp;
+        <button *ngIf="nb_adresses > 0" mat-mini-fab color="primary" (click)="deleteAddress()">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </div> 
+    </div>   
+</div>

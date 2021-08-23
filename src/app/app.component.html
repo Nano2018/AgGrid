@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+    <img id="app-logo" src="/assets/images/cfm.png" alt="cfm">
+    <button mat-stroked-button  (click) = "goToVisualisation()">Visualiser</button>
+</mat-toolbar>
+<div *ngIf="receivedMessage" class="show-changes">
+    <p>{{message}}</p>
+</div>
+<app-visualization *ngIf = "showVisualisation" (editItemEvent) = "editContact($event)" (addContactEvent) = "goToCaptureScreen()" (displayContactsEvent) = "displayContacts($event)" (sendMessage) = "showReceivedMessage($event)"></app-visualization>
+<app-capture-screen *ngIf = "showCaptureScreen" [contactEdit] = "contactToEdit" (goToVisualisationEvent) = "goToVisualisation($event)"></app-capture-screen>
+<app-contact-details *ngIf = "showContactDetails"  [contacts] = "contactsToDisplay" (updateContactEvent) = "editContact($event)" (sendMessage) = "showReceivedMessage($event)" (nothingToDisplay) = "goToVisualisation($event)"></app-contact-details>

@@ -1,0 +1,53 @@
+<div class="forms-filter">
+    <span class="filter">Filtrer par:</span>
+    <div class="button-crud">
+        <button mat-mini-fab color="primary" (click) = "addContact()">
+            <mat-icon>add</mat-icon>
+        </button>
+        &nbsp;
+        <button *ngIf = "selectedRow()" mat-mini-fab color="accent" (click) = "updateContact()">
+            <mat-icon>update</mat-icon>
+        </button>
+        &nbsp;
+        <button *ngIf = "selectedRows()" mat-mini-fab color="warn" (click) = "removeSelectedRows()">
+            <mat-icon>delete</mat-icon>
+        </button>
+        &nbsp; 
+        <button *ngIf = "selectedRows()" mat-mini-fab color="primary" (click) = "displayContact()">
+            <mat-icon>visibility</mat-icon>
+        </button>
+    </div>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Nom:</mat-label>
+        <input matInput [(ngModel)] = "externalFiltre[0]" (input) = "onExternalFilterDetected()">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Prénom:</mat-label>
+        <input matInput [(ngModel)] = "externalFiltre[1]" (input) = "onExternalFilterDetected()">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Ville:</mat-label>
+        <input matInput [(ngModel)] = "externalFiltre[2]" (input) = "onExternalFilterDetected()">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Pays:</mat-label>
+        <input matInput [(ngModel)] = "externalFiltre[3]" (input) = "onExternalFilterDetected()">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+        <mat-label>Code Postale:</mat-label>
+        <input matInput [(ngModel)] = "externalFiltre[4]" (input) = "onExternalFilterDetected()">
+    </mat-form-field>
+</div>
+
+<div id="center" class="ag-theme-alpine">
+    <ag-grid-angular
+    #agGrid
+    style="height: 600px;"
+    [gridOptions] = "gridOptions"
+    ></ag-grid-angular>
+</div>
